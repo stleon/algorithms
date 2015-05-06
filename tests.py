@@ -1,5 +1,6 @@
 from linear_search import linear_search_1, linear_search_2, linear_search_3
 from binary_search import binary_search
+from selection_sort import selection_sort
 import unittest
 
 class TestLinearSearch(unittest.TestCase):
@@ -44,6 +45,18 @@ class TestBinarySearch(unittest.TestCase):
 	def testNotIn(self):
 		self.assertEqual(binary_search([1, 2], 3), None, 'Element not in list')
 
+
+class TestSelectionSort(unittest.TestCase):
+
+	def setUp(self):
+		self.lst = [100, 10, 1000, 1]
+		self.lst_sorted = [1, 10, 100, 1000]
+
+	def testResult(self):
+		self.assertEqual(selection_sort(self.lst), self.lst_sorted, 'Problem with sorting')
+
+	def testSortedResult(self):
+		self.assertEqual(selection_sort(self.lst_sorted), self.lst_sorted, 'Problem with sorting')
 
 
 if __name__ == '__main__':
