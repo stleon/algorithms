@@ -14,6 +14,7 @@ start(Elements, X) ->
     {MiddleInd, MiddleVal} = get_middle(A, Start, End),
     find(A, Start, End, MiddleInd, MiddleVal, X).
 
+find(_, Start, End, _, _, _) when Start < End -> false;
 find(_, _, _, MiddleInd, MiddleVal, X) when MiddleVal == X -> MiddleInd;
 find(A, Start, _, MiddleInd, MiddleVal, X) when MiddleVal > X ->
     NewEnd = MiddleInd - 1,
