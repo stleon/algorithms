@@ -10,20 +10,17 @@ get_middle(A, Start, End) when Start =< End ->
 
 start(Elements, X) -> 
     A = array:from_list([I || I <- lists:seq(0, Elements)], {default, 0}),
-    Len = Elements - 1,
-    Start = 0,
-    End = Len,
-    {Middle, Y} = get_middle(A, Start, End),
-    find(A, Start, End, Middle, Y, X).
+    {Start, End} = {0, array:size(A) - 1},
+    {MiddleInd, MiddleVal} = get_middle(A, Start, End),
+    find(A, Start, End, MiddleInd, MiddleVal, X).
 
-
-find(_, _, _, _, Y, X) when Y == X -> Y;
-find(A, Start, _, Middle, Y, X) when Y > X ->
-    NewEnd = Middle - 1,
+find(_, _, _, MiddleInd, MiddleVal, X) when MiddleVal == X -> MiddleInd;
+find(A, Start, _, MiddleInd, MiddleVal, X) when MiddleVal > X ->
+    NewEnd = MiddleInd - 1,
     {NewMiddle, NewY} = get_middle(A, Start, NewEnd),
     find(A, Start, NewEnd, NewMiddle, NewY, X);
 
-find(A, _, End, Middle, Y, X) when Y < X ->
-    NewStart = Middle + 1,
+find(A, _, End, MiddleInd, MiddleVal, X) when MiddleVal < X ->
+    NewStart = MiddleInd + 1,
     {NewMiddle, NewY} = get_middle(A, NewStart, End),
     find(A, NewStart, End, NewMiddle, NewY, X).
